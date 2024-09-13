@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"Lab1Kozak304","l":"genMatrix(int, String, PrintWriter)","u":"genMatrix(int,java.lang.String,java.io.PrintWriter)"},{"p":"<Unnamed>","c":"Lab1Kozak304","l":"Lab1Kozak304()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Lab1Kozak304","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
