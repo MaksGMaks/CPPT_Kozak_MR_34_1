@@ -133,15 +133,16 @@ public class Main {
         System.out.println("\t5 - Update message history");
         System.out.println("\t6 - Clear message history");
         System.out.println("\t7 - Make call");
-        System.out.println("\t8 - Mute microphone");
-        System.out.println("\t9 - Unmute microphone");
-        System.out.println("\t10 - Increase volume");
-        System.out.println("\t11 - Decrease volume");
-        System.out.println("\t12 - Connect");
-        System.out.println("\t13 - Disconnect");
-        System.out.println("\t14 - Change number");
-        System.out.println("\t15 - Plug in");
-        System.out.println("\t16 - Unplug");
+        System.out.println("\t8 - Send message");
+        System.out.println("\t9 - Mute microphone");
+        System.out.println("\t10 - Unmute microphone");
+        System.out.println("\t11 - Increase volume");
+        System.out.println("\t12 - Decrease volume");
+        System.out.println("\t13 - Connect");
+        System.out.println("\t14 - Disconnect");
+        System.out.println("\t15 - Change number");
+        System.out.println("\t16 - Plug in");
+        System.out.println("\t17 - Unplug");
         System.out.println("\t0 - Back");
 
         Scanner inp = new Scanner(System.in);
@@ -208,46 +209,55 @@ public class Main {
             case 8:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
+                fout.println("\n\t\tAction \"Send message\" selected\n");
+                while (selectReceiver(sender, phones)) {
+                    continue;
+                }
+                break;
+
+            case 9:
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 fout.println("\n\t\tAction \"Mute microphone\" selected\n");
                 sender.mute();
                 break;
 
-            case 9:
+            case 10:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Unmute microphone\" selected\n");
                 sender.unmute();
                 break;
 
-            case 10:
+            case 11:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Increase volume\" selected\n");
                 sender.increaseVolume();
                 break;
 
-            case 11:
+            case 12:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Decrease volume\" selected\n");
                 sender.decreaseVolume();
                 break;
 
-            case 12:
+            case 13:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Connect\" selected\n");
                 sender.setConnected();
                 break;
 
-            case 13:
+            case 14:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Disconnect\" selected\n");
                 sender.setDisconnected();
                 break;
 
-            case 14:
+            case 15:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Change number\" selected\n");
@@ -256,14 +266,14 @@ public class Main {
                     sender.changeNumber(num.next());
                 break;
 
-            case 15:
+            case 16:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Plug in\" selected\n");
                 sender.setPlugged();
                 break;
 
-            case 16:
+            case 17:
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 fout.println("\n\t\tAction \"Unplug\" selected\n");
@@ -343,4 +353,69 @@ public class Main {
         sender.makeCall(phones[selector - 1]);
         return false;
     }
+
+    /**
+     * Receier selection menu to send message
+     * @param sender phone which make call
+     * @param phones all phones
+     * @return <b>true</b> if choose wrong
+     * <b>false</b> if choose right to close loop
+     * @throws FileNotFoundException to provide file write
+     */
+    private static boolean selectReceiver(MobilePhone sender, MobilePhone[] phones) throws FileNotFoundException {
+        int selector = 0;
+        boolean rightInp = false;
+
+        while (!rightInp) {
+            System.out.println("\t\tSelect receiver:");
+            int numbers = 1;
+            int sendNum = 0;
+            for(Phone phone : phones) {
+                if(phone != sender) {
+                    System.out.println("\t" + numbers + " - " + phone.getNumber());
+                } else {
+                    sendNum = numbers;
+                }
+                numbers++;
+
+            }
+            System.out.println("\t0 - Back");
+
+            Scanner inp = new Scanner(System.in);
+            try {
+                selector = Integer.parseInt(inp.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("\tWrong number occurs. Please enter correct one from list");
+                return true;
+            }
+
+            if(selector > numbers || selector < 0 || selector == sendNum) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("\tWrong number occurs. Please enter correct one from list");
+            } else {
+                rightInp = true;
+            }
+        }
+        System.out.println();
+
+        if(selector == 0) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            return false;
+        }
+
+        System.out.println("Input message text");
+        Scanner inp = new Scanner(System.in);
+        String message = inp.nextLine();
+
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        sender.sendMessage(phones[selector - 1], message);
+        return false;
+    }
 }
+

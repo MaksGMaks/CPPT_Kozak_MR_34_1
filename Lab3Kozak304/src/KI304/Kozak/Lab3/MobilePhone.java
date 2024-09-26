@@ -216,9 +216,9 @@ public class MobilePhone extends Phone implements IMobilePhone{
             }
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(Calendar.getInstance().getTime());
             if (receiver.getMessage(number, message)) {
-                callHistory.add("\tYou sent message to " + receiver.number + " at " + timeStamp + ". MESSAGE:\n" + message + "\nENEMESSAGE");
+                messageHistory.add("\tYou sent message to " + receiver.number + " at " + timeStamp + ". MESSAGE:\n\t\t" + message + "\n\tENEMESSAGE");
             } else {
-                callHistory.add("\tYou tried to send message to number " + receiver.number + " at " + timeStamp + " but he is unreachable");
+                messageHistory.add("\tYou tried to send message to number " + receiver.number + " at " + timeStamp + " but he is unreachable");
             }
             System.out.println("\tYou history was updated");
             fout.println("\tYou history was updated");
@@ -304,9 +304,9 @@ public class MobilePhone extends Phone implements IMobilePhone{
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(Calendar.getInstance().getTime());
 
             if (!isConnected) {
-                unreceivedMessage.add("\tNumber " + number + " sent message to you at " + timeStamp + ". MESSAGE:\n" + message + "\nENDMESSAGE");
+                unreceivedMessage.add("\tNumber " + number + " sent message to you at " + timeStamp + ". MESSAGE:\n\t\t" + message + "\n\tENDMESSAGE");
             } else {
-                messageHistory.add("\tNumber " + number + " sent message to you at " + timeStamp + ". MESSAGE:\n" + message + "\nENDMESSAGE");
+                messageHistory.add("\tNumber " + number + " sent message to you at " + timeStamp + ". MESSAGE:\n\t\t" + message + "\n\tENDMESSAGE");
             }
             return true;
         }
