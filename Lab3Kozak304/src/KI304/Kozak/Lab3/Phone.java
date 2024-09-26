@@ -1,10 +1,9 @@
-package KI304.Kozak.Lab2;
+package KI304.Kozak.Lab3;
 
-import KI304.Kozak.Lab2.Handset;
-import KI304.Kozak.Lab2.PowerSupply;
-import KI304.Kozak.Lab2.PhoneLine;
+import KI304.Kozak.Lab3.Handset;
+import KI304.Kozak.Lab3.PhoneLine;
+import KI304.Kozak.Lab3.PowerSupply;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,17 +20,17 @@ import java.util.Vector;
  * <li><b>powerSupply</b> - provide energy for actions</li>
  * <li><b>phoneLine</b> - provide connection between phones to make them able to call to each other</li>
  */
-public class Phone {
+public abstract class Phone {
 
-    private final Handset handset;
-    private final PowerSupply powerSupply;
-    private final PhoneLine phoneLine;
+    protected final Handset handset;
+    protected final PowerSupply powerSupply;
+    protected final PhoneLine phoneLine;
     
     PrintWriter fout;
 
-    private Vector<String> callHistory;
-    private String number;
-    private boolean isConnected;
+    protected Vector<String> callHistory;
+    protected String number;
+    protected boolean isConnected;
 
     /**
      * Phone constructor (all parameters input manually)
@@ -280,18 +279,7 @@ public class Phone {
      * Get status of phone and print it
      * @throws FileNotFoundException to provide file write
      */
-    public void getStatus() throws FileNotFoundException {
-        System.out.println("\n\t\tStatus");
-        fout.println("\n\t\tStatus");
-        System.out.println("\tCurrent volume is: " + handset.currentVolume(fout));
-        System.out.println(handset.microphoneState(fout) ? "\tMicrophone is muted" : "\tMicrophone is unmuted");
-        System.out.println(powerSupply.getPluggedState(fout) ? "\tPhone is plugged" : "\tPhone is unplugged");
-        System.out.println(powerSupply.getHasBattery(fout) ? "\tCapacity: " + powerSupply.getCurrentCapacity() + "/" + powerSupply.getMaxCapacity() : "\tPhone doesn't have a battery");
-        System.out.println("\tNumber: " + number);
-        fout.println("\tNumber: " + number);
-        System.out.println(isConnected ? "\tPhone is connected" : "\tPhone is disconnected");
-        fout.println(isConnected ? "\tPhone is connected" : "\tPhone is disconnected");
-    }
+    public abstract void getStatus() throws FileNotFoundException;
 
     /**
      * Get phone number
