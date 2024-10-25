@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"KI304.Kozak.Lab4","l":"EquationResolver"},{"p":"KI304.Kozak.Lab4","l":"InfinityException"},{"p":"KI304.Kozak.Lab4","l":"Main"}];updateSearchResults();
