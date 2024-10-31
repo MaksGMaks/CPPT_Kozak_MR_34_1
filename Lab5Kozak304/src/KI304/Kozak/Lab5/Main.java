@@ -1,35 +1,27 @@
-package KI304.Kozak.Lab4;
+package KI304.Kozak.Lab5;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import KI304.Kozak.Lab5.FileOperations;
 
 /**
  * Main class
  */
 public class Main {
     public static void main(String[] args) {
-        File fOutput = new File("Result.txt");
-        PrintWriter fout = null;
-        try {
-            fout = new PrintWriter (fOutput);
-            fout.flush();
-        } catch (FileNotFoundException e) {
-            try {
-                fOutput.createNewFile();
-                fout = new PrintWriter (fOutput);
-                fout.flush();
-            } catch (IOException ex) {
-                System.err.println("Program can't create file to output result. Program is terminated");
-                System.exit(-1);
-            }
-        }
         EquationResolver resolver = new EquationResolver();
+        FileOperations operator = new FileOperations();
+        try {
+            operator.clearTxt();
+            operator.clearBin();
+        } catch (IOException e) {
+            System.err.println("Can't clear file. Program is terminated");
+            System.exit(-5);
+        }
 
         System.out.println("Input x: ");
         double x = 0;
@@ -45,11 +37,23 @@ public class Main {
             y = resolver.calculate(x);
             BigDecimal bd = new BigDecimal(y).setScale(4, RoundingMode.HALF_UP);
             System.out.println("Result: y = " + bd);
-            fout.println("Result: y = " + bd);
-            fout.close();
+            try {
+                operator.writeLineTxt("Result: y = " + bd);
+                operator.writeLineBin("Result: y = " + bd);
+            } catch (IOException e) {
+                System.err.println("Can't write to files");
+            }
         } catch (InfinityException e) {
             System.out.println("In value x equation reach infinity");
-            fout.close();
+        }
+
+        try {
+            System.out.println("TXT Output:");
+            operator.readTxt();
+            System.out.println("BIN Output:");
+            operator.readBin();
+        } catch (IOException e) {
+            System.err.println("Can't read from files");
         }
     }
 }
