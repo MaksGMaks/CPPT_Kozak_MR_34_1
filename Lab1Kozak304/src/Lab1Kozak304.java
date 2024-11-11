@@ -114,10 +114,7 @@ public class Lab1Kozak304 {
 
         for(int i = 0; i < size; i++)
         {
-            if(i % 2 == 0)
-                column[i] = sym;
-            else
-                column[i] = "+";
+            column[i] = sym;
         }
 
         for(int i = 0; i < rows; i++) {
