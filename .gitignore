@@ -16,7 +16,8 @@ out/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-**/Matrix.txt
+*.txt
+*.bin
 
 ### NetBeans ###
 /nbproject/private/
