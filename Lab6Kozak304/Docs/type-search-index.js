@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"KI304.Kozak.Lab6","l":"Dictionary"},{"p":"<Unnamed>","l":"Main"}];updateSearchResults();
