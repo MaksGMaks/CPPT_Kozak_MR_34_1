@@ -5,7 +5,7 @@ import java.sql.Struct;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public interface IMobilePhone {
+public abstract interface IMobilePhone {
     /**
      * Change current phone number
      * @param newNumber new phone number
